@@ -345,7 +345,7 @@ setInterval(() => {
     damageImprints();
 }, 1000 / fps)
 const port = 80;
-const host = "192.168.0.105";
+const host = "change-this-to-your-ip";
 
 server.listen(port, () => {
     console.log(`Server is running on http://${host}:${port}`);
