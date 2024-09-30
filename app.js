@@ -344,8 +344,13 @@ setInterval(() => {
     moveBullets();
     damageImprints();
 }, 1000 / fps)
+<<<<<<< HEAD
 const port = 6567;
 const host = "192.168.0.105";
+=======
+const port = 80;
+const host = "change-this-to-your-ip";
+>>>>>>> f5a19a2cdd86398099a29936f4fbff62ca209b5e
 
 server.listen(port, () => {
     console.log(`Server is running on http://${host}:${port}`);
