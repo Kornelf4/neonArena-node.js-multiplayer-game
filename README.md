@@ -1,4 +1,4 @@
-<h1 style="color: red">NeonArena</h1>
+<h1>NeonArena</h1>
 
 <p>The simple nodejs based multiplayer bullet hell arena, made in a weekend.</p>
 <h2>What is this?</h2>
