@@ -1,6 +1,6 @@
 <h1>NeonArena</h1>
 
-<p>The simple nodejs based multiplayer bullet hell arena, made in a weekend.</p>
+<p>The simple node.js based multiplayer bullet hell arena, made in a weekend. Using socket.io.</p>
 <h2>What is this?</h2>
 Good question.
 It's my first node.js project, made just for fun.
