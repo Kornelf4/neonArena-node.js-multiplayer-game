@@ -344,7 +344,7 @@ setInterval(() => {
     moveBullets();
     damageImprints();
 }, 1000 / fps)
-const port = 80;
+const port = 6567;
 const host = "192.168.0.105";
 
 server.listen(port, () => {
