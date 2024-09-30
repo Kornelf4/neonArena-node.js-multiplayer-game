@@ -3,8 +3,8 @@
 <p>The simple nodejs based multiplayer bullet hell arena, made in a weekend.</p>
 <h2>What is this?</h2>
 Good question.
-It's my first nodejs project, made just for fun.
-It's in prototype phase updates soon.
+It's my first node.js project, made just for fun.
+It's in prototype phase updates and soon.
 
 <h2>What it's used for?</h2>
 It's designed to play small matches with your friends (or enemies).
