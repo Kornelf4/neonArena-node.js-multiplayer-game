@@ -28,22 +28,19 @@ function generate2DArray(rows, columns) {
 
 let map = generate2DArray(1500 / sizeUnit, 700 / sizeUnit);
 map[5][4] = "#";
-map[4][4] = "#";
 map[6][4] = "#";
 map[7][4] = "#";
 map[8][4] = "#";
 
 map[6][5] = "#";
-map[5][5] = "#";
 map[7][5] = "#";
 
-map[4][19] = "#";
 map[5][19] = "#";
 map[6][19] = "#";
 map[7][19] = "#";
 map[8][19] = "#";
 
-map[5][18] = "#";
+
 map[6][18] = "#";
 map[7][18] = "#";
 
@@ -63,6 +60,10 @@ map[2][11] = "#";
 map[2][10] = "#";
 map[2][13] = "#";
 
+map[6][12] = "@";
+map[6][11] = "@";
+map[7][12] = "@";
+map[7][11] = "@";
 class imprint {
     constructor(obj, lifetime, alphM) {
         this.x = obj.x;
@@ -71,7 +72,7 @@ class imprint {
         this.ysize = obj.ysize;
         this.color = obj.color;
         this.maxlifetime = lifetime,
-            this.alpha = 1;
+        this.alpha = 1;
         this.alphaM = alphM;
         this.lifetime = lifetime;
         this.render = () => {
@@ -359,9 +360,12 @@ server.listen(port, () => {
         for (let i2 in map[i]) {
             switch (map[i][i2]) {
                 case "#":
-                    walls.unshift(new wall(i2 * sizeUnit, i * sizeUnit, 5));
+                    walls.unshift(new wall(i2 * sizeUnit, i * sizeUnit, 8));
                     break;
                 case 0:
+                    break;
+                case "@":
+                    walls.unshift(new wall(i2 * sizeUnit, i * sizeUnit, 15));
                     break;
             }
         }
