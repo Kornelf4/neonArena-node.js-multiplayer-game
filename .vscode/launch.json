@@ -4,7 +4,7 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Open mindustry2.56.html",
+            "name": "Open",
             "file": "e:\\fefe adat\\Dokumentumok\\akod\\multiplayer\\index.html"
         }
     ]
