@@ -2,8 +2,9 @@ const express = require("express")
 const app = express()
 
 //socket.io setup
-const http = require("http")
-const path = require("path")
+const http = require("http");
+const path = require("path");
+let playersIn = 0;
 const fps = 42;
 const sizeUnit = 50;
 const server = http.createServer(app)
@@ -149,15 +150,20 @@ io.on("connection", (socket) => {
         ysize: 50,
         hp: 10
     }
+    playersIn += 1;
+    console.log("Player connected with id: " + socket.id);
+    console.log("Players on server: " + playersIn);
     io.emit("updatePlayers", players);
     socket.on("disconnect", (reason) => {
+        playersIn -= 1;
+        console.log("Player disconnected with id: " + socket.id);
+        console.log("Players on server: " + playersIn);
         delete players[socket.id]
         io.emit("updatePlayers", players);
     })
     socket.on("addImprint", (object, lifetime, alphaMultiplayer) => {
         imprints.unshift(new imprint(object, lifetime, alphaMultiplayer));
         function a() {
-            //if (imprints.length < 200) return;
             imprints.splice(getRndInteger(0, imprints.length - 1));
             a();
         }

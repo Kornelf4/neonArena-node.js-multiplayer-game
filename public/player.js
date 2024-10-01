@@ -11,7 +11,7 @@ class player {
             ctx.strokeStyle = "white";
             ctx.strokeRect(this.x, this.y, this.xsize, this.ysize);
             ctx.fillStyle = "white";
-            ctx.font = "28px Arial"
+            ctx.font = "28px Arial";
             ctx.fillText(this.hp, this.x, this.y + 28);
         }
     }
