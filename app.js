@@ -315,9 +315,25 @@ function moveBullets() {
         }*/
         //a();
         bullets[i - removed].move();
-        if (bullets[i - removed].x < 0 || bullets[i - removed].x > 1200 || bullets[i - removed].y > 700 || bullets[i - removed].y < 0) {
+        /*if (bullets[i - removed].x < 0 || bullets[i - removed].x > 1200 || bullets[i - removed].y > 700 || bullets[i - removed].y < 0) {
             bullets.splice(i - removed, 1);
             removed++;
+            io.emit("updateBullets", bullets);
+        }*/
+        if (bullets[i - removed].x + bullets[i - removed].xsize < 0) {
+            bullets[i - removed].x = 1200;
+            io.emit("updateBullets", bullets);
+        }
+        if (bullets[i - removed].x > 1200) {
+            bullets[i - removed].x = 0 - bullets[i - removed].xsize;
+            io.emit("updateBullets", bullets);
+        }
+        if (bullets[i - removed].y + bullets[i - removed].ysize < 0) {
+            bullets[i - removed].y = 700;
+            io.emit("updateBullets", bullets);
+        }
+        if (bullets[i - removed].y > 700) {
+            bullets[i - removed].y = 0;
             io.emit("updateBullets", bullets);
         }
         for (const i2 in players) {
