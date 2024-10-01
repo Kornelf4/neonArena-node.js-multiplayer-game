@@ -7,7 +7,7 @@ class player {
         this.hp = 10;
         this.ysize = 50;
         this.render = () => {
-            socket.emit("addImprint", this, 15, 0.4);
+            socket.emit("addImprint", this, 15, 0.25);
             ctx.strokeStyle = "white";
             ctx.strokeRect(this.x, this.y, this.xsize, this.ysize);
             ctx.fillStyle = "white";

@@ -300,7 +300,7 @@ function damageImprints() {
 function moveBullets() {
     let removed = 0;
     for (const i in bullets) {
-        imprints.unshift(new imprint(bullets[i - removed], 10, 0.35));
+        imprints.unshift(new imprint(bullets[i - removed], 10, 0.55));
         /*function a() {
             if (imprints.length < 300) return;
             imprints.splice(getRndInteger(0, imprints.length - 1));

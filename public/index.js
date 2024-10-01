@@ -64,7 +64,7 @@ function renderAll() {
         ctx.strokeStyle = imprints[i].color;
         ctx.lineJoin = "bevel";
         ctx.lineWidth = 3;
-        ctx.strokeRect(imprints[i].x, imprints[i].y, imprints[i].xsize, imprints[i].ysize);
+        ctx.fillRect(imprints[i].x, imprints[i].y, imprints[i].xsize, imprints[i].ysize);
         ctx.globalAlpha = 1;
     }
     for (const i in walls) {
