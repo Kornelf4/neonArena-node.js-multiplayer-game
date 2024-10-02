@@ -72,7 +72,7 @@ class imprint {
         this.ysize = obj.ysize;
         this.color = obj.color;
         this.maxlifetime = lifetime,
-        this.alpha = 1;
+            this.alpha = 1;
         this.alphaM = alphM;
         this.lifetime = lifetime;
         this.render = () => {
@@ -139,28 +139,43 @@ function getRndInteger(min, max) {
 }
 io.on("connection", (socket) => {
     const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
-    const r = randomBetween(0, 255);
-    const g = randomBetween(0, 255);
-    const b = randomBetween(0, 255);
-    const rgb = `rgb(${r},${g},${b})`;
-    players[socket.id] = {
-        x: 500 * Math.random(),
-        y: 100 * Math.random(),
-        color: rgb,
-        xsize: 50,
-        ysize: 50,
-        hp: 10
-    }
-    playersIn += 1;
-    console.log("Player connected with id: " + socket.id);
-    console.log("Players on server: " + playersIn);
-    io.emit("updatePlayers", players);
+    socket.on("playerJoin", (joinID) => {
+        const r = randomBetween(0, 255);
+        const g = randomBetween(0, 255);
+        const b = randomBetween(0, 255);
+        const rgb = `rgb(${r},${g},${b})`;
+        players[joinID] = {
+            x: 500 * Math.random(),
+            y: 100 * Math.random(),
+            color: rgb,
+            xsize: 50,
+            ysize: 50,
+            hp: 10
+        }
+        playersIn += 1;
+        console.log("Player connected with id: " + joinID);
+        console.log("Players on server: " + playersIn);
+        io.emit("updatePlayers", players);
+    })
     socket.on("disconnect", (reason) => {
+        if (players[socket.id] !== undefined) {
+            playersIn -= 1;
+            console.log("Player disconnected with id: " + socket.id);
+            console.log("Players on server: " + playersIn);
+            delete players[socket.id];
+            io.emit("updatePlayers", players);
+        }
+    })
+    socket.on("clickDisconnect", (reason) => {
         playersIn -= 1;
         console.log("Player disconnected with id: " + socket.id);
         console.log("Players on server: " + playersIn);
-        delete players[socket.id]
+        delete players[socket.id];
         io.emit("updatePlayers", players);
+        for(let i = 0;i < 150; i++) {
+            damageImprints();
+            io.emit("updateImprins", imprints);
+        }
     })
     socket.on("addImprint", (object, lifetime, alphaMultiplayer) => {
         imprints.unshift(new imprint(object, lifetime, alphaMultiplayer));
@@ -175,14 +190,6 @@ io.on("connection", (socket) => {
         imprints.splice(index, 1);
     })
     socket.on("damageImprint", (index) => {
-        /*if (imprints[index] === undefined) return;
-        imprints[index].lifetime -= 1;
-        imprints[index].alpha = imprints[index].lifetime / imprints[index].maxlifetime;
-        if (imprints[index].x < 0 || imprints[index].x > 1200 || imprints[index].y > 700 || imprints[index].y < 0) {
-            imprints.splice(index, 1);
-            return;
-        }
-        if (imprints[index].lifetime == 0) imprints.splice(index, 1);*/
     })
     socket.on("keydown", (key) => {
         if (players[socket.id] === undefined) return;
@@ -256,41 +263,6 @@ io.on("connection", (socket) => {
     socket.on("getWallMap", () => {
         io.emit("reciveWallMap", walls);
     })
-    /*socket.on("moveBullets", () => {
-        let removed = 0;
-        for (const i in bullets) {
-            //imprints.unshift(new imprint(bullets[i - removed], 10, 0.35));
-            function a() {
-                if (imprints.length < 300) return;
-                imprints.splice(getRndInteger(0, imprints.length - 1));
-                a();
-            }
-            a();
-            bullets[i - removed].move();
-            if (bullets[i - removed].x < 0 || bullets[i - removed].x > 1200 || bullets[i - removed].y > 700 || bullets[i - removed].y < 0) {
-                bullets.splice(i - removed, 1);
-                removed++;
-            }
-            for (const i2 in players) {
-                if (checkAABBCollision(bullets[i - removed], players[i2]) && bullets[i - removed].owner != i2) {
-                    bullets.splice(i - removed, 1);
-                    removed++;
-                    players[i2].hp -= 1;
-                    io.emit("updatePlayers", players);
-                }
-            }
-            for (const i2 in walls) {
-                if (checkAABBCollision(bullets[i - removed], walls[i2])) {
-                    bullets.splice(i - removed, 1);
-                    removed++;
-                    walls[i2].hp -= 1;
-                    if (walls[i2].hp == 0) {
-                        walls.splice(i, 1);
-                    }
-                }
-            }
-        }
-    })*/
 });
 function damageImprints() {
     for (let index in imprints) {
@@ -308,18 +280,7 @@ function moveBullets() {
     let removed = 0;
     for (const i in bullets) {
         imprints.unshift(new imprint(bullets[i - removed], 10, 0.55));
-        /*function a() {
-            if (imprints.length < 300) return;
-            imprints.splice(getRndInteger(0, imprints.length - 1));
-            a();
-        }*/
-        //a();
         bullets[i - removed].move();
-        /*if (bullets[i - removed].x < 0 || bullets[i - removed].x > 1200 || bullets[i - removed].y > 700 || bullets[i - removed].y < 0) {
-            bullets.splice(i - removed, 1);
-            removed++;
-            io.emit("updateBullets", bullets);
-        }*/
         if (bullets[i - removed].x + bullets[i - removed].xsize < 0) {
             bullets[i - removed].x = 1200;
             io.emit("updateBullets", bullets);
@@ -365,6 +326,8 @@ setInterval(() => {
     var fps = 1000 / (thisLoop - lastLoop);
     lastLoop = thisLoop;
     moveBullets();
+    io.emit("sendFPS", fps);
+    io.emit("updatePlayers", players);
     damageImprints();
 }, 1000 / fps)
 const port = 6567;

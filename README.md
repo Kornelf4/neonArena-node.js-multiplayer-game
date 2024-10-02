@@ -16,7 +16,7 @@ Steps to host the game:</br>
 1. Download or clone this.</br>
 2. Download node.js</br>
 3. Sorry, you have to edit the app.js file with VS Code or other IDE. So open the forder in it.</br>
-4. At the line 348 you will see a veriable named host. You have to change this variable to your v4 IP address.</br>
+4. At the line 334 you will see a veriable named host. You have to change this variable to your v4 IP address.</br>
 5. Save the file and close the folder.</br>
 6. Open terminal or cmd. Navigate to neonArena folder, and run: </br>
 node app.js</br>

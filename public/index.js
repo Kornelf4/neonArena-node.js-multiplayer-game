@@ -36,6 +36,7 @@ socket.on("updatePlayers", (backendPlayers) => {
             delete players[id];
         }
     }
+    if(players[socket.id] === undefined) return;
     if (players[socket.id].hp <= 0) {
         socket.emit("forceDisconnect", socket.id);
     } else {
@@ -82,7 +83,7 @@ function renderAll() {
     }
 }
 function playerInput() {
-    if (!players[socket.id]) return;
+    if (players[socket.id] === undefined) return;
     if (keys.w) {
         socket.emit("keydown", "w")
     }
@@ -114,6 +115,15 @@ const canvasY = (canvas.getBoundingClientRect().top).toFixed(5);
 window.onmousemove = function (e) {
     cursorX = (e.clientX - canvasX) / (canvas.getBoundingClientRect().right - canvasX) * parseFloat(canvas.width);
     cursorY = (e.clientY - canvasY) / (canvas.getBoundingClientRect().bottom - canvasY) * parseFloat(canvas.height);
+}
+function joinClick() {
+    if(players[socket.id] === undefined) {
+        socket.emit("playerJoin", socket.id);
+    }
+}
+function quitClick() {
+    console.log("clicked");
+    socket.emit("clickDisconnect", socket.id);
 }
 canvas.onclick = function () {
     if (players[socket.id] === undefined) return;
