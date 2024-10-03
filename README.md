@@ -29,4 +29,9 @@ If something went wrong, feel free to write to the issues, and I will try to fix
 <h2>Remote server</h2>
 If you want to play someone on another wifi network, you should use port forwarding or create tunnel on port 6567. I suppose playit.gg for tunnels.
 </br>
+<<<<<<< HEAD
 <h2>Thanks for reading my bad english. Go and clone/dowload it.</h2>
+=======
+<h2>Thanks for reading my bad english. Go and clone/dowload it.</h2>
+<img src="https://t.bkit.co/w_66fd4ca0edf0a.gif" />
+>>>>>>> a65296057a0eaf48babc30d1042c3c13263f912b
