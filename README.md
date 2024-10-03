@@ -29,7 +29,7 @@ If something went wrong, feel free to write to the issues, and I will try to fix
 <h2>Remote server</h2>
 If you want to play someone on another wifi network, you should use port forwarding or create tunnel on port 6567. I suppose playit.gg for tunnels.
 </br>
-<h2>Controns:</h2>
+<h2>Controls:</h2>
 Type username top the text box, and click join game. You can move with wasd. You will fire a bullet where you clicked.
 <h2>Thanks for reading my bad english. Go and clone/download it.</h2>
 <img src="https://t.bkit.co/w_66fd4ca0edf0a.gif" />
