@@ -23,7 +23,7 @@ function getAlpha(xside, yside) {
 socket.on("updatePlayers", (backendPlayers) => {
     for (const id in backendPlayers) {
         if (!players[id]) {
-            players[id] = new player(backendPlayers[id].x, backendPlayers[id].y, backendPlayers[id].color)
+            players[id] = new player(backendPlayers[id].x, backendPlayers[id].y, backendPlayers[id].color, backendPlayers[id].name)
         } else {
             //If already exist
             players[id].x = backendPlayers[id].x;
@@ -117,8 +117,8 @@ window.onmousemove = function (e) {
     cursorY = (e.clientY - canvasY) / (canvas.getBoundingClientRect().bottom - canvasY) * parseFloat(canvas.height);
 }
 function joinClick() {
-    if(players[socket.id] === undefined) {
-        socket.emit("playerJoin", socket.id);
+    if(players[socket.id] === undefined && document.getElementById("playerName").value != "") {
+        socket.emit("playerJoin", socket.id, document.getElementById("playerName").value);
     }
 }
 function quitClick() {

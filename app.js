@@ -139,7 +139,7 @@ function getRndInteger(min, max) {
 }
 io.on("connection", (socket) => {
     const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
-    socket.on("playerJoin", (joinID) => {
+    socket.on("playerJoin", (joinID, name) => {
         const r = randomBetween(0, 255);
         const g = randomBetween(0, 255);
         const b = randomBetween(0, 255);
@@ -150,7 +150,8 @@ io.on("connection", (socket) => {
             color: rgb,
             xsize: 50,
             ysize: 50,
-            hp: 10
+            hp: 10,
+            name: name
         }
         playersIn += 1;
         console.log("Player connected with id: " + joinID);
